@@ -3,7 +3,7 @@ language: go
 before_install:
   - make dev
 
-  - curl -L https://github.com/coreos/etcd/releases/download/v3.3.8/etcd-v3.3.8-linux-amd64.tar.gz -o etcd etcd-v3.3.8-linux-amd64.tar.gz
+  - curl -L https://github.com/coreos/etcd/releases/download/v3.3.8/etcd-v3.3.8-linux-amd64.tar.gz -o etcd-v3.3.8-linux-amd64.tar.gz
   - tar xzf etcd-v3.3.8-linux-amd64.tar.gz
   - sudo mv etcd-v3.3.8-linux-amd64/etcd /bin/
   - sudo mv etcd-v3.3.8-linux-amd64/etcdctl /bin/

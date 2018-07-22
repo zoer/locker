@@ -23,14 +23,18 @@ import (
 )
 
 func main() {
-	cl, err := etcd.NewFromURL("127.0.0.1:2379")
+	// connect to Etcd instance
+	cl, err := clientv3.NewFromURL("127.0.0.1:2379")
 	if err != nil {
 		log.Fatalf("unable connect to Etcd")
 	}
 
-	lkr := locker.NewEtcd(cl)
+	lkr := NewEtcd(cl)
 
-	l, err := lkr.Lock(context.TODO(), WithKey("lock-key"), WithWaitTTL(2 * time.Second))
+	// cancel the lock via context timeout after 30 seconds
+	ctx, _ := context.WithTimeout(context.TODO(), 30*time.Second)
+
+	l, err := lkr.Lock(ctx, WithKey("lock-key"))
 	if err != nil {
 		log.Fatalf("unable get a lock: %v", err)
 	}

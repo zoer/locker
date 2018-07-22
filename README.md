@@ -39,6 +39,8 @@ func main() {
 		log.Fatalf("unable get a lock: %v", err)
 	}
 	defer l.Unlock()
+
+	// ...
 }
 ```
 

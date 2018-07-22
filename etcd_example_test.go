@@ -18,11 +18,14 @@ func Example() {
 	lkr := NewEtcd(cl)
 
 	// cancel the lock via context timeout after 30 seconds
-	ctx, _ := context.WithTimeout(context.TODO(), 30*time.Second)
+	ctx, cancel := context.WithTimeout(context.TODO(), 30*time.Second)
+	defer cancel()
 
 	l, err := lkr.Lock(ctx, WithKey("lock-key"))
 	if err != nil {
 		log.Fatalf("unable get a lock: %v", err)
 	}
 	defer l.Unlock()
+
+	// ...
 }
